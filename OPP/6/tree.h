@@ -1,0 +1,36 @@
+#ifndef TREE_H
+#define TREE_H
+#include <iostream>
+#include "tree_item.h"
+#include <iterator.h>
+struct node
+{
+  int key_value;     
+  std::shared_ptr<TreeItem<T>> value;
+  node *left;
+  node *right;
+};
+template <class T>
+class btree
+{
+    public:
+        btree();
+        ~btree();
+        std::shared_ptr<T> front() const;
+        void insert(const  std::shared_ptr<T>& item,int key);
+        void destroy_tree();
+        node *search(int key);
+        
+        Iterator<TreeItem<T>, T> begin() const;
+	Iterator<TreeItem<T>, T> end() const;
+        template <class K>
+friend std::ostream& operator << (std::ostream& os, const btree<K>& btree);
+    private:
+        void destroy_tree(node *leaf);
+        void insert(const std::shared_ptr<T>& item,int key, node *leaf);
+        node *search(int key, node *leaf);
+        int node_count;
+        node *root;
+};
+#include "tree.cpp"
+#endif

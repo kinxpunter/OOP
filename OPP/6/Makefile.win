@@ -1,0 +1,54 @@
+# Project: 6
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o square.o tree_item_impl.o iterator_impl.o tree.o allocator.o figure.o stack_impl.o stack_item_impl.o $(RES)
+LINKOBJ  = main.o square.o tree_item_impl.o iterator_impl.o tree.o allocator.o figure.o stack_impl.o stack_item_impl.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib"  -g3 
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = 5.exe
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before 5.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "5.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+square.o: square.cpp
+	$(CPP) -c square.cpp -o square.o $(CXXFLAGS)
+
+tree_item_impl.o: tree_item_impl.cpp
+	$(CPP) -c tree_item_impl.cpp -o tree_item_impl.o $(CXXFLAGS)
+
+iterator_impl.o: iterator_impl.cpp
+	$(CPP) -c iterator_impl.cpp -o iterator_impl.o $(CXXFLAGS)
+
+tree.o: tree.cpp
+	$(CPP) -c tree.cpp -o tree.o $(CXXFLAGS)
+
+allocator.o: allocator.cpp
+	$(CPP) -c allocator.cpp -o allocator.o $(CXXFLAGS)
+
+figure.o: figure.cpp
+	$(CPP) -c figure.cpp -o figure.o $(CXXFLAGS)
+
+stack_impl.o: stack_impl.cpp
+	$(CPP) -c stack_impl.cpp -o stack_impl.o $(CXXFLAGS)
+
+stack_item_impl.o: stack_item_impl.cpp
+	$(CPP) -c stack_item_impl.cpp -o stack_item_impl.o $(CXXFLAGS)
