@@ -1,10 +1,11 @@
+
 template <class T>
 TreeItem<T>::TreeItem(const std::shared_ptr<T>& item)
 {
 	m_item = item;
 }
 template <class T>
-void TreeItem::setNext(std::shared_ptr<TreeItem<T>> next)
+void TreeItem<T>::setNext(std::shared_ptr<TreeItem<T>> next)
 {
 	m_next = next;
 }

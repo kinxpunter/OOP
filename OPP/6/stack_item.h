@@ -1,5 +1,5 @@
-#ifndef LIST_ITEM_H
-#define LIST_ITEM_H
+#ifndef STACK_ITEM_H
+#define STACK_ITEM_H
 
 #include <memory>
 
@@ -9,8 +9,8 @@ class StackItem
 public:
 	StackItem(const std::shared_ptr<T>& item);
 
-	void setPrev(std::shared_ptr<StackItem<T>> prev);
-	std::shared_ptr<StackItem<T>> getPrev();
+	void setNext(std::shared_ptr<StackItem<T>> prev);
+	std::shared_ptr<StackItem<T>> getNext();
 	std::shared_ptr<T> getItem() const;
 
 private:
@@ -18,7 +18,6 @@ private:
 	std::shared_ptr<StackItem<T>> m_prev;
 
 };
-
-#include "list_item_impl.cpp"
+#include "stack_item_impl.cpp"
 
 #endif

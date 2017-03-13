@@ -1,3 +1,4 @@
+
 template<class T>
 Stack<T>::Stack()
 {
@@ -10,22 +11,24 @@ Stack<T>::Stack()
 template<class T>
 Stack<T>::~Stack()
 {
-	clear();
+	while(top!=NULL);
+	{
+	pop();}
 }
 
 template<class T>
 void Stack<T>::push(const std::shared_ptr<T>& item)
 {
-	std::shared_ptr<QueueItem<T>> itemPtr = std::make_shared<QueueItem<T>>(item);
+	std::shared_ptr<StackItem<T>> itemPtr = std::make_shared<StackItem<T>>(item);
 if (m_size == 0)
 	{
-		m_top = itemPtr;
-		m_prev = m_top;
+		top = itemPtr;
+		prev = top;
 	}
 	else
 	{
-		m_prev->setNext(itemPtr);
-		m_prev = itemPtr;
+		prev->setNext(itemPtr);
+		prev = itemPtr;
 	}
 
 	++m_size;
@@ -60,21 +63,44 @@ bool Stack<T>::empty() const
 }
 
 template <class T>
-Iterator<ListItem<T>, T> List<T>::begin() const
+Iterator<StackItem<T>, T> Stack<T>::begin() const
 {
-	return Iterator<ListItem<T>, T>(m_begin);
+	return Iterator<StackItem<T>, T>(top);
 }
 
 template <class T>
-Iterator<ListItem<T>, T> List<T>::end() const
+Iterator<StackItem<T>, T> Stack<T>::end() const
 {
-	return Iterator<ListItem<T>, T>(nullptr);
+	return Iterator<StackItem<T>, T>(nullptr);
+}
+
+
+
+
+
+
+
+template <class T>
+Iterator<StackItem<T>, T> Stack<T>::get(unsigned int index) const
+{
+ if (index >= size())
+ return end();
+
+ Iterator<StackItem<T>, T> it = begin();
+
+ while (index > 0)
+ {
+ ++it;
+ --index;
+ }
+
+ return it;
 }
 
 template <class K>
 std::ostream& operator << (std::ostream& os, const Stack<K>& stack)
 {
-	if (list.size() == 0)
+	if (stack.size() == 0)
 	{
 		os << "================" << std::endl;
 		os << "List is empty" << std::endl;

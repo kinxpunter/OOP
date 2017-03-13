@@ -5,23 +5,22 @@
 
 int main()
 {
-	unsigned int action;
+	 int action=0;
 	btree<Figure> q;
 int key;
-	while (true)
+	while (action!=99)
 	{
 		std::cout << "================" << std::endl;
 		std::cout << "Menu:" << std::endl;
 		std::cout << "1) Add figure" << std::endl;
 		std::cout << "2) Delete figure" << std::endl;
 		std::cout << "3) Print" << std::endl;
-		std::cout << "0) Quit" << std::endl;
+		std::cout << "99) Quit" << std::endl;
 		std::cin >> action;
 
-		if (action == 0)
-			break;
 		
-		if (action > 3)
+		
+		if (action > 100)
 		{
 			std::cout << "Error: invalid action" << std::endl;
 
@@ -86,8 +85,10 @@ int key;
 
 			case 2:
 			{
-			//	q.pop();
-
+			
+                              std::cout << "Enter key" << std::endl;
+		        std::cin >> key;
+		        q.delete_t(key);
 				break;
 			}
 
@@ -97,8 +98,11 @@ int key;
 
 				break;
 			}
+			case 99:
+			{
+				return 0;
 		}
 	}
-	
-	return 0;
+}
+return 0;
 }

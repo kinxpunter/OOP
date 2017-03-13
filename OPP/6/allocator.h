@@ -2,7 +2,7 @@
 #define ALLOCATOR_H
 
 #include <cstdlib>
-#include "list.h"
+#include "stack.h"
 
 #define R_CAST(__ptr, __type) reinterpret_cast<__type>(__ptr)
 
@@ -18,7 +18,7 @@ public:
 
 private:
 	void* m_memory;
-	List<unsigned int> m_freeBlocks;
+	Stack<unsigned int> m_freeBlocks;
 };
 
 #endif

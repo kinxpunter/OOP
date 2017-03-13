@@ -2,7 +2,8 @@
 #define STACK_H
 
 #include <iostream>
-
+#include "stack_item.h"
+#include "iterator.h"
 
 	template<class T>
 	class Stack
@@ -18,6 +19,7 @@
 
     Iterator<StackItem<T>, T> begin() const;
 	Iterator<StackItem<T>, T> end() const;
+	Iterator<StackItem<T>, T> get(unsigned int index) const;
 
 	template <class K>
 	friend std::ostream& operator << (std::ostream& os, const Stack<K>& stack);
@@ -27,5 +29,6 @@
 		std::shared_ptr<StackItem<T>> prev;
 		unsigned int m_size;
 	};
+
 #include "stack_impl.cpp"
 #endif

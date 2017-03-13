@@ -1,17 +1,17 @@
-#include "tree.h"
+
 
 template <class T>
-btree::btree()
+btree<T>::btree()
 {
   root=NULL;
 }
 template <class T>
-btree::~btree()
+btree<T>::~btree()
 {
   root=NULL;
 }
 template <class T>
-void btree::destroy_tree(node *leaf)
+void btree<T>::destroy_tree(node<T> *leaf)
 {
   if(leaf!=NULL)
   {
@@ -21,30 +21,30 @@ void btree::destroy_tree(node *leaf)
   }
 }
 template <class T>
-Iterator<TreeItem<T>, T> tree<T>::begin() const
+Iterator<TreeItem<T>, T> btree<T>::begin() const
 {
-	return IteratorTreeItem<T>, T>(m_front);
+	return Iterator<TreeItem<T>,T>(root->value);
 }
 
 template <class T>
-Iterator<TreeItem<T>, T> Tree<T>::end() const
+Iterator<TreeItem<T>, T> btree<T>::end() const
 {
 	return Iterator<TreeItem<T>, T>(nullptr);
 }
 template <class T>
-void btree::insert(const std::shared_ptr<T>& item,int key, node *leaf)
+void btree<T>::insert(const std::shared_ptr<T>& item,int key, node<T> *leaf)
 {
-     std::shared_ptr<TreeItem<T>> item = std::make_shared<TreeItem<T>>(item);
+     std::shared_ptr<TreeItem<T>> itemptr = std::make_shared<TreeItem<T>>(item);
   if(key<leaf->key_value )
   {
     if(leaf->left!=NULL)
-     insert(square,key, leaf->left);
+     insert(item,key, leaf->left);
     else
     {
-      leaf->left=new node;
-      leaf->left->value=item;
+      leaf->left=new node<T>;
+      leaf->left->value=itemptr;
       leaf->left->key_value=key;
-      leaf->value->setNext(item);
+      leaf->value->setNext(itemptr);
       leaf->left->left=NULL;    //Sets the left child of the child node to null
       leaf->left->right=NULL;   //Sets the right child of the child node to null
     }  
@@ -52,13 +52,13 @@ void btree::insert(const std::shared_ptr<T>& item,int key, node *leaf)
   else if(key>=leaf->key_value)
   {
     if(leaf->right!=NULL)
-      insert(square,key, leaf->right);
+      insert(item,key, leaf->right);
     else
     {
-      leaf->right=new node;
-      leaf->right->value=item;
+      leaf->right=new node<T>;
+      leaf->right->value=itemptr;
       leaf->right->key_value=key;
-      leaf->value->setNext(item);
+      leaf->value->setNext(itemptr);
       leaf->right->left=NULL;  //Sets the left child of the child node to null
       leaf->right->right=NULL; //Sets the right child of the child node to null
     }
@@ -66,16 +66,16 @@ void btree::insert(const std::shared_ptr<T>& item,int key, node *leaf)
   node_count++;
 }
 template <class T>
-void btree::insert(const std::shared_ptr<T>& item,int key)
+void btree<T>::insert(const std::shared_ptr<T>& item,int key)
 {
-     std::shared_ptr<TreeItem<T>> item = std::make_shared<TreeItem<T>>(item);
+     std::shared_ptr<TreeItem<T>> itemptr = std::make_shared<TreeItem<T>>(item);
   if(root!=NULL)
-    insert(square,key, root);
+    insert(item,key, root);
   else
   {
-    root=new node;
+    root=new node<T>;
     root->key_value=key;
-    root->value=item;
+    root->value=itemptr;
     root->left=NULL;
     root->right=NULL;
   }
@@ -83,32 +83,52 @@ void btree::insert(const std::shared_ptr<T>& item,int key)
 }
 
 template <class T>
-void btree::destroy_tree()
+void btree<T>::destroy_tree()
 {
   destroy_tree(root);
 }
 template <class K>
-std::ostream& operator << (std::ostream& os, const btree& btree)
+std::ostream& operator << (std::ostream& os, const btree<K>& btree)
 {
 	if (btree.node_count == 0)
 	{
 		os << "================" << std::endl;
-		os << "Tree is empty" << std::endl;
+		os << "Queue is empty" << std::endl;
 	}
 	else
-	{
-		std::shared_ptr<TreeItem<K>> item = btree.root->value;
-
-		while (item != NULL)
-		{
-			os << item->getItem();
-			item = item->getNext();
-		}
-	}
+		for (std::shared_ptr<K> item : btree)
+			item->print();
 
 	return os;
 }
-node *btree::search(int key, node *leaf)
+
+template <class T>
+void btree<T>::delete_t(int key)
+{
+if( node<T> *leaf= search(key,root)){
+ if (leaf->left==NULL && leaf->left==NULL)
+ {
+  leaf->key_value=0;
+  leaf->value=NULL;
+ }
+ else 
+ {
+  if( leaf->left!=NULL)
+  {
+   delete_t(leaf->left->key_value); 
+  }
+  if( leaf->right!=NULL)
+  {
+   delete_t(leaf->right->key_value); 
+  }
+ }
+   node_count--;
+}
+else std::cout<<"no such item in tree\n";
+}
+
+template <class T>
+node<T> *btree<T>::search(int key, node<T> *leaf)
 {
   if(leaf!=NULL)
   {
@@ -121,12 +141,15 @@ node *btree::search(int key, node *leaf)
   }
   else return NULL;
 }
-node *btree::search(int key)
+
+template <class T>
+node<T> *btree<T>::search(int key)
 {
   return search(key, root);
 }
-
-Square btree::front() const
+template <class T>
+std::shared_ptr<T> btree<T>::front() const
 {
 	return root->value->getItem();
 }
+
