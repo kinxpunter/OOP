@@ -1,5 +1,6 @@
+
 template <class N, class T>
-Iterator<N, T>::Iterator(const std::shared_ptr<N>& item)
+Iterator<N,T>::Iterator(const std::shared_ptr<N>& item)
 {
 	m_item = item;
 }

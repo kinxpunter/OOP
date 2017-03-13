@@ -2,9 +2,9 @@
 #define SQUARE_H
 
 #include <iostream>
+#include "figure.h"
 
-
-class Square 
+class Square : public Figure
 {
 public:
 	Square();

@@ -1,8 +1,6 @@
-#ifndef TREE_ITEM_H
-#define TREE_ITEM_H
 
 #include <memory>
-#include "figure.h"
+
 template <class T>
 class TreeItem
 {
@@ -12,9 +10,10 @@ public:
 	std::shared_ptr <TreeItem<T>> getNext();
 	std::shared_ptr <T> getItem() const;
 private:
-	std::shared_ptr <Figure> m_item;
+	std::shared_ptr <T> m_item;
 	std::shared_ptr <TreeItem> m_next;
 };
 
+
+
 #include "tree_item_impl.cpp"
-#endif

@@ -1,3 +1,4 @@
+
 #include "tree.h"
 #include "square.h"
 #include "rectangle.h"
@@ -86,7 +87,9 @@ int key;
 
 			case 2:
 			{
-			//	q.pop();
+		   std::cout << "Enter key" << std::endl;
+		        std::cin >> key;
+		        q.delete_t(key);
 
 				break;
 			}
